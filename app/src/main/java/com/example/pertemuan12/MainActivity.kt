@@ -19,7 +19,6 @@ class MainActivity : ComponentActivity() {
             Pertemuan12Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     DataSiswaApp(
-                        // Sekarang ini GAK AKAN MERAH karena DataSiswaApp udah punya modifier
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
