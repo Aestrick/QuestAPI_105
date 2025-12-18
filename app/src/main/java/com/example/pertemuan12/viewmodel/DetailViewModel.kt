@@ -26,7 +26,6 @@ class DetailViewModel(
     // INI AMAN SEKARANG (Karena DestinasiDetail udah diganti jadi 'nama')
     private val _nama: String = checkNotNull(savedStateHandle[DestinasiDetail.nama])
 
-    // Pake mutableStateOf lagi biar HalamanDetail seneng
     var detailUiState: DetailUiState by mutableStateOf(DetailUiState.Loading)
         private set
 
