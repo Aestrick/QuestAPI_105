@@ -52,7 +52,6 @@ class DetailViewModel(
     fun deleteSiswa() {
         viewModelScope.launch {
             try {
-                // Panggil repository langsung tanpa label
                 repositoryDataSiswa.deleteDataSiswa(_nama)
             } catch (e: IOException) {
                 detailUiState = DetailUiState.Error
