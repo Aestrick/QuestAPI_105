@@ -55,7 +55,7 @@ fun Pertemuan12Theme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography, // Pastikan Type.kt ada
+        typography = Typography,
         content = content
     )
 }
