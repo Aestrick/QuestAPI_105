@@ -23,7 +23,6 @@ class DetailViewModel(
     private val repositoryDataSiswa: RepositoryDataSiswa
 ) : ViewModel() {
 
-    // INI AMAN SEKARANG (Karena DestinasiDetail udah diganti jadi 'nama')
     private val _nama: String = checkNotNull(savedStateHandle[DestinasiDetail.nama])
 
     var detailUiState: DetailUiState by mutableStateOf(DetailUiState.Loading)
