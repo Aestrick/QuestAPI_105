@@ -38,7 +38,6 @@ class DetailViewModel(
         viewModelScope.launch {
             detailUiState = DetailUiState.Loading
             detailUiState = try {
-                // Panggil repository langsung tanpa label
                 val siswa = repositoryDataSiswa.getDataSiswaById(_nama)
                 DetailUiState.Success(siswa)
             } catch (e: IOException) {
