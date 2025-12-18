@@ -23,7 +23,7 @@ fun DataSiswaApp(
     modifier: Modifier = Modifier // <--- KITA TAMBAHKAN INI BIAR MAIN ACTIVITY SENENG
 ) {
     Scaffold(
-        modifier = modifier // <--- PASANG MODIFIER DARI LUAR DI SINI
+        modifier = modifier
     ) { innerPadding ->
         HostNavigasi(
             navController = navController,
