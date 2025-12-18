@@ -20,7 +20,7 @@ import com.example.pertemuan12.view.ItemEditScreen
 @Composable
 fun DataSiswaApp(
     navController: NavHostController = rememberNavController(),
-    modifier: Modifier = Modifier // <--- KITA TAMBAHKAN INI BIAR MAIN ACTIVITY SENENG
+    modifier: Modifier = Modifier
 ) {
     Scaffold(
         modifier = modifier
