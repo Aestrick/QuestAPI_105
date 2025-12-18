@@ -18,7 +18,6 @@ class EditViewModel(
     var uiStateSiswa by mutableStateOf(UIStateSiswa())
         private set
 
-    // INI JUGA AMAN SEKARANG
     private val _nama: String = checkNotNull(savedStateHandle[DestinasiEdit.nama])
 
     init {
