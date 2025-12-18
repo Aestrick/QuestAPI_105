@@ -11,4 +11,3 @@ class AplikasiDataSiswa : Application() {
     }
 }
 
-//contoh
