@@ -36,6 +36,3 @@ class NetworkRepositoryDataSiswa(
         return serviceApiSiswa.getDataSiswaById(nama)
     }
 }
-
-
-//ya
