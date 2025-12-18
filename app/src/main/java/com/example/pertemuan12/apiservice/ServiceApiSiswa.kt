@@ -30,5 +30,3 @@ interface ServiceApiSiswa {
     @DELETE("deleteTM.php")
     suspend fun deleteDataSiswa(@Query("nama") nama: String): Response<Void>
 }
-
-//contoh
