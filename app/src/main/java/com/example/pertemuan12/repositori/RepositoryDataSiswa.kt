@@ -37,5 +37,5 @@ class NetworkRepositoryDataSiswa(
     }
 }
 
-//contoh
+
 //ya
