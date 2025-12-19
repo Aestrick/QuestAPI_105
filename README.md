@@ -6,14 +6,12 @@ Repository ini berisi source code aplikasi Android **MyDataSiswa**. Aplikasi ini
 
 Aplikasi ini berfungsi untuk memanajemen data siswa. Pengguna dapat melihat daftar siswa, menambahkan data baru, serta menghapus data yang sudah ada. Data diambil dan disinkronkan menggunakan API.
 
-**Format Nama Repository:** QuestAPI_[3_DIGIT_NIM_TERAKHIR]
-
 ## 🛠 Teknologi yang Digunakan
 
 * **Bahasa:** Kotlin
-* **UI Toolkit:** Jetpack Compose (atau XML View System - sesuaikan dengan kodemu)
+* **UI Toolkit:** Jetpack Compose (atau XML View System - sesuaikan dengan kode saya)
 * **Networking:** Retrofit / HttpURLConnection
-* **Architecture:** MVVM (Model-View-ViewModel) - *jika menggunakan*
+* **Architecture:** MVVM (Model-View-ViewModel) - 
 
 ## 📱 Fitur & Screenshot Operasi
 
