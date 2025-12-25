@@ -15,10 +15,8 @@ interface ServiceApiSiswa {
     @POST("insertTM.php")
     suspend fun insertDataSiswa(@Body dataSiswa: DataSiswa)
 
-    // Perhatikan: Menggunakan id: Int
     @GET("baca1teman.php")
     suspend fun getDataSiswaById(@Query("id") id: Int): DataSiswa
-
 
     @POST("editTM.php")
     suspend fun updateDataSiswa(@Query("id") id: Int, @Body dataSiswa: DataSiswa)
