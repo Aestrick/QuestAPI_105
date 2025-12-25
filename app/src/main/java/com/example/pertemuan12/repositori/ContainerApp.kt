@@ -4,43 +4,31 @@ import com.example.pertemuan12.apiservice.ServiceApiSiswa
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
-interface ContainerApp {
+interface AppContainer {
     val repositoryDataSiswa: RepositoryDataSiswa
 }
 
-class DefaultContainerApp : ContainerApp {
-    // GANTI IP INI JIKA PERLU (10.0.2.2 = localhost emulator)
+class ContainerDataSiswa : AppContainer {
+    // 1. IP EMULATOR = 10.0.2.2
+    // 2. FOLDER KAMU = umyTI (sesuai screenshot)
+    // 3. WAJIB DI-AKHIRI GARIS MIRING '/'
     private val baseUrl = "http://10.0.2.2/umyTI/"
 
-    private val json = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-        prettyPrint = true
-    }
-
-    private val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(logging)
-        .build()
+    // Konfigurasi JSON agar tidak error jika ada field asing
+    private val json = Json { ignoreUnknownKeys = true }
 
     private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(baseUrl)
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-        .client(client)
+        .baseUrl(baseUrl)
         .build()
 
-    private val retrofitService: ServiceApiSiswa by lazy {
+    private val serviceApiSiswa: ServiceApiSiswa by lazy {
         retrofit.create(ServiceApiSiswa::class.java)
     }
 
     override val repositoryDataSiswa: RepositoryDataSiswa by lazy {
-        NetworkRepositoryDataSiswa(retrofitService)
+        NetworkRepositoryDataSiswa(serviceApiSiswa)
     }
 }
