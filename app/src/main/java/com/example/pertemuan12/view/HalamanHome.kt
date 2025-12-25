@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pertemuan12.modeldata.DataSiswa
-// Pastikan import ini benar (sesuaikan nama package kamu)
 import com.example.pertemuan12.uicontroller.route.DestinasiHome
 import com.example.pertemuan12.viewmodel.HomeUiState
 import com.example.pertemuan12.viewmodel.HomeViewModel
@@ -52,7 +51,7 @@ fun HomeScreen(
         },
     ) { innerPadding ->
         HomeStatus(
-            homeUiState = viewModel.homeUiState, // Sudah sesuai dengan ViewModel baru
+            homeUiState = viewModel.homeUiState,
             retryAction = viewModel::getSiswa,
             modifier = Modifier.padding(innerPadding),
             onDetailClick = onDetailClick,
@@ -94,7 +93,7 @@ fun HomeStatus(
 @Composable
 fun OnLoading(modifier: Modifier = Modifier) {
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
-        CircularProgressIndicator() // Tambahan loading indicator biar cantik
+        CircularProgressIndicator()
     }
 }
 

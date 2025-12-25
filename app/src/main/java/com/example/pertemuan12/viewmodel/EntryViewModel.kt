@@ -32,7 +32,6 @@ class EntryViewModel(private val repositoryDataSiswa: RepositoryDataSiswa) : Vie
         viewModelScope.launch {
             if (validasiInput()) {
                 try {
-                    // id otomatis 0 atau diatur backend, tapi wajib dikirim
                     repositoryDataSiswa.insertDataSiswa(uiStateSiswa.detailSiswa.toDataSiswa())
                 } catch (e: Exception) {
                     e.printStackTrace()
