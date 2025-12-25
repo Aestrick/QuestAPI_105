@@ -23,20 +23,22 @@ class DetailViewModel(
     private val repositoryDataSiswa: RepositoryDataSiswa
 ) : ViewModel() {
 
-    private val _nama: String = checkNotNull(savedStateHandle[DestinasiDetail.nama])
+    // Perbaikan: Ambil ID (Int) bukan Nama
+    private val _idSiswa: Int = checkNotNull(savedStateHandle[DestinasiDetail.itemIdArg])
 
     var detailUiState: DetailUiState by mutableStateOf(DetailUiState.Loading)
         private set
 
     init {
-        getSiswaByName()
+        getSiswaById()
     }
 
-    fun getSiswaByName() {
+    // Perbaikan: Fungsi get by ID
+    fun getSiswaById() {
         viewModelScope.launch {
             detailUiState = DetailUiState.Loading
             detailUiState = try {
-                val siswa = repositoryDataSiswa.getDataSiswaById(_nama)
+                val siswa = repositoryDataSiswa.getDataSiswaById(_idSiswa)
                 DetailUiState.Success(siswa)
             } catch (e: IOException) {
                 DetailUiState.Error
@@ -46,10 +48,11 @@ class DetailViewModel(
         }
     }
 
+    // Perbaikan: Delete by ID
     fun deleteSiswa() {
         viewModelScope.launch {
             try {
-                repositoryDataSiswa.deleteDataSiswa(_nama)
+                repositoryDataSiswa.deleteDataSiswa(_idSiswa)
             } catch (e: IOException) {
                 detailUiState = DetailUiState.Error
             } catch (e: Exception) {
