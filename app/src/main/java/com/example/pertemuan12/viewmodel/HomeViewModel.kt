@@ -8,32 +8,45 @@ import androidx.lifecycle.viewModelScope
 import com.example.pertemuan12.modeldata.DataSiswa
 import com.example.pertemuan12.repositori.RepositoryDataSiswa
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import java.io.IOException
+import retrofit2.HttpException
 
-sealed interface StatusUiSiswa {
-    data class Success(val siswa: List<DataSiswa>) : StatusUiSiswa
-    object Error : StatusUiSiswa
-    object Loading : StatusUiSiswa
+sealed interface HomeUiState {
+    data class Success(val siswa: List<DataSiswa>) : HomeUiState
+    object Error : HomeUiState
+    object Loading : HomeUiState
 }
 
 class HomeViewModel(private val repositoryDataSiswa: RepositoryDataSiswa) : ViewModel() {
-    var listSiswa: StatusUiSiswa by mutableStateOf(StatusUiSiswa.Loading)
+    var homeUiState: HomeUiState by mutableStateOf(HomeUiState.Loading)
         private set
 
     init {
-        loadSiswa()
+        getSiswa()
     }
 
-    fun loadSiswa() {
+    fun getSiswa() {
         viewModelScope.launch {
-            listSiswa = StatusUiSiswa.Loading
-            listSiswa = try {
-                StatusUiSiswa.Success(repositoryDataSiswa.getDataSiswa())
+            homeUiState = HomeUiState.Loading
+            homeUiState = try {
+                HomeUiState.Success(repositoryDataSiswa.getDataSiswa())
             } catch (e: IOException) {
-                StatusUiSiswa.Error
+                HomeUiState.Error
             } catch (e: HttpException) {
-                StatusUiSiswa.Error
+                HomeUiState.Error
+            }
+        }
+    }
+
+    fun deleteSiswa(id: Int) {
+        viewModelScope.launch {
+            try {
+                repositoryDataSiswa.deleteDataSiswa(id)
+                getSiswa() // Refresh data setelah hapus
+            } catch (e: IOException) {
+                homeUiState = HomeUiState.Error
+            } catch (e: HttpException) {
+                homeUiState = HomeUiState.Error
             }
         }
     }

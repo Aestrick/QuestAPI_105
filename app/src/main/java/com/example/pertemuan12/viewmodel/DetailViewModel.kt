@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pertemuan12.modeldata.DataSiswa
 import com.example.pertemuan12.repositori.RepositoryDataSiswa
+// PERHATIKAN BARIS INI: Import dari DestinasiNavigasi
 import com.example.pertemuan12.uicontroller.route.DestinasiDetail
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -23,6 +24,7 @@ class DetailViewModel(
     private val repositoryDataSiswa: RepositoryDataSiswa
 ) : ViewModel() {
 
+    // Ambil ID dari navigasi (Pastikan itemIdArg sesuai dengan di DestinasiNavigasi)
     private val _idSiswa: Int = checkNotNull(savedStateHandle[DestinasiDetail.itemIdArg])
 
     var detailUiState: DetailUiState by mutableStateOf(DetailUiState.Loading)

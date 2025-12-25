@@ -7,26 +7,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pertemuan12.R
+import com.example.pertemuan12.modeldata.DetailSiswa
+import com.example.pertemuan12.modeldata.UIStateSiswa
 import com.example.pertemuan12.uicontroller.route.DestinasiEntry
-import com.example.pertemuan12.viewmodel.DetailSiswa
 import com.example.pertemuan12.viewmodel.EntryViewModel
-import com.example.pertemuan12.viewmodel.UIStateSiswa
 import com.example.pertemuan12.viewmodel.provider.PenyediaViewModel
 import kotlinx.coroutines.launch
 
@@ -56,7 +51,7 @@ fun EntrySiswaScreen(
             onSiswaValueChange = viewModel::updateUiState,
             onSaveClick = {
                 coroutineScope.launch {
-                    viewModel.insertSiswa()
+                    viewModel.addSiswa()
                     navigateBack()
                 }
             },
@@ -76,8 +71,8 @@ fun EntryBody(
     modifier: Modifier = Modifier
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = modifier.padding(12.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier.padding(16.dp)
     ) {
         FormInput(
             detailSiswa = uiStateSiswa.detailSiswa,
@@ -87,9 +82,10 @@ fun EntryBody(
         Button(
             onClick = onSaveClick,
             enabled = uiStateSiswa.isEntryValid,
+            shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(stringResource(R.string.btn_submit))
+            Text(text = stringResource(R.string.btn_submit)) // Pastikan string ini ada
         }
     }
 }
@@ -97,43 +93,38 @@ fun EntryBody(
 @Composable
 fun FormInput(
     detailSiswa: DetailSiswa,
-    onValueChange: (DetailSiswa) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onValueChange: (DetailSiswa) -> Unit = {},
+    enabled: Boolean = true
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         OutlinedTextField(
             value = detailSiswa.nama,
             onValueChange = { onValueChange(detailSiswa.copy(nama = it)) },
-            label = { Text(stringResource(R.string.nama)) },
+            label = { Text(stringResource(R.string.nama)) }, // Pastikan string ini ada
             modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
             singleLine = true
         )
         OutlinedTextField(
             value = detailSiswa.alamat,
             onValueChange = { onValueChange(detailSiswa.copy(alamat = it)) },
-            label = { Text(stringResource(R.string.alamat)) },
+            label = { Text(stringResource(R.string.alamat)) }, // Pastikan string ini ada
             modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
             singleLine = true
         )
         OutlinedTextField(
             value = detailSiswa.telpon,
             onValueChange = { onValueChange(detailSiswa.copy(telpon = it)) },
-            label = { Text(stringResource(R.string.telpon)) },
+            label = { Text(stringResource(R.string.telpon)) }, // Pastikan string ini ada
             modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
-
-        Text(
-            text = stringResource(R.string.required_field),
-            modifier = Modifier.padding(start = 12.dp)
-        )
-        Divider(
-            thickness = 1.dp,
-            modifier = Modifier.padding(bottom = 12.dp)
         )
     }
 }

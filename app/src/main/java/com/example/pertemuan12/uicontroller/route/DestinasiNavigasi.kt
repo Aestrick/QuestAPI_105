@@ -20,13 +20,13 @@ object DestinasiEntry : DestinasiNavigasi {
 object DestinasiDetail : DestinasiNavigasi {
     override val route = "detail"
     override val titleRes = R.string.detail_siswa
-    const val itemIdArg = "itemId"
+    const val itemIdArg = "itemId" // Ini yang dicari EditViewModel
     val routeWithArgs = "$route/{$itemIdArg}"
 }
 
 object DestinasiEdit : DestinasiNavigasi {
     override val route = "edit"
     override val titleRes = R.string.edit_siswa
-    const val itemIdArg = "itemId"
+    const val itemIdArg = "itemId" // Ini yang dicari EditViewModel
     val routeWithArgs = "$route/{$itemIdArg}"
 }

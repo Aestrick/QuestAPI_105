@@ -6,12 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pertemuan12.modeldata.DataSiswa
 import com.example.pertemuan12.modeldata.DetailSiswa
+import com.example.pertemuan12.modeldata.UIStateSiswa
 import com.example.pertemuan12.modeldata.toDataSiswa
 import com.example.pertemuan12.modeldata.toDetailSiswa
-import com.example.pertemuan12.modeldata.UIStateSiswa
 import com.example.pertemuan12.repositori.RepositoryDataSiswa
+// PERHATIKAN BARIS INI: Import dari DestinasiNavigasi
 import com.example.pertemuan12.uicontroller.route.DestinasiEdit
 import kotlinx.coroutines.launch
 
@@ -23,6 +23,7 @@ class EditViewModel(
     var uiStateSiswa by mutableStateOf(UIStateSiswa())
         private set
 
+    // Ambil ID dari navigasi
     private val _idSiswa: Int = checkNotNull(savedStateHandle[DestinasiEdit.itemIdArg])
 
     init {
@@ -49,6 +50,7 @@ class EditViewModel(
     fun updateSiswa() {
         viewModelScope.launch {
             try {
+                // Kirim ID dan Data Siswa
                 repositoryDataSiswa.updateDataSiswa(_idSiswa, uiStateSiswa.detailSiswa.toDataSiswa())
             } catch (e: Exception) {
                 e.printStackTrace()

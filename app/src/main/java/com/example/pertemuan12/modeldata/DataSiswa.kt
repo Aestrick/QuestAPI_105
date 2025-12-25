@@ -1,6 +1,8 @@
+@file:OptIn(kotlinx.serialization.InternalSerializationApi::class)
 package com.example.pertemuan12.modeldata
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.InternalSerializationApi
 
 @Serializable
 data class DataSiswa(
@@ -9,8 +11,6 @@ data class DataSiswa(
     val alamat: String,
     val telpon: String
 )
-
-// --- TAMBAHKAN KODE DI BAWAH INI ---
 
 data class DetailSiswa(
     val id: Int = 0,
@@ -25,7 +25,7 @@ data class UIStateSiswa(
 )
 
 fun DetailSiswa.toDataSiswa(): DataSiswa = DataSiswa(
-    id = id,
+    id = id, // Bagian ini yang tadi error "No value passed for parameter id"
     nama = nama,
     alamat = alamat,
     telpon = telpon

@@ -5,7 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pertemuan12.modeldata.DataSiswa
+import com.example.pertemuan12.modeldata.DetailSiswa
+import com.example.pertemuan12.modeldata.UIStateSiswa
+import com.example.pertemuan12.modeldata.toDataSiswa
 import com.example.pertemuan12.repositori.RepositoryDataSiswa
 import kotlinx.coroutines.launch
 
@@ -14,7 +16,10 @@ class EntryViewModel(private val repositoryDataSiswa: RepositoryDataSiswa) : Vie
         private set
 
     fun updateUiState(detailSiswa: DetailSiswa) {
-        uiStateSiswa = UIStateSiswa(detailSiswa = detailSiswa, isEntryValid = validasiInput(detailSiswa))
+        uiStateSiswa = UIStateSiswa(
+            detailSiswa = detailSiswa,
+            isEntryValid = validasiInput(detailSiswa)
+        )
     }
 
     private fun validasiInput(uiState: DetailSiswa = uiStateSiswa.detailSiswa): Boolean {
@@ -23,39 +28,16 @@ class EntryViewModel(private val repositoryDataSiswa: RepositoryDataSiswa) : Vie
         }
     }
 
-    fun insertSiswa() {
+    fun addSiswa() {
         viewModelScope.launch {
-            try {
-                val siswa = uiStateSiswa.detailSiswa.toDataSiswa()
-                repositoryDataSiswa.insertDataSiswa(siswa)
-                uiStateSiswa = UIStateSiswa() // Reset form
-            } catch (e: Exception) {
-                e.printStackTrace()
+            if (validasiInput()) {
+                try {
+                    // id otomatis 0 atau diatur backend, tapi wajib dikirim
+                    repositoryDataSiswa.insertDataSiswa(uiStateSiswa.detailSiswa.toDataSiswa())
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
 }
-
-data class UIStateSiswa(
-    val detailSiswa: DetailSiswa = DetailSiswa(),
-    val isEntryValid: Boolean = false
-)
-
-data class DetailSiswa(
-    val nama: String = "",
-    val alamat: String = "",
-    val telpon: String = ""
-)
-
-// Extension functions
-fun DetailSiswa.toDataSiswa(): DataSiswa = DataSiswa(
-    nama = nama,
-    alamat = alamat,
-    telpon = telpon
-)
-
-fun DataSiswa.toDetailSiswa(): DetailSiswa = DetailSiswa(
-    nama = nama,
-    alamat = alamat,
-    telpon = telpon
-)
