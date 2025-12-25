@@ -20,9 +20,9 @@ interface ServiceApiSiswa {
     suspend fun getDataSiswaById(@Query("id") id: Int): DataSiswa
 
     // Perhatikan: Menggunakan id: Int
-    @POST("editTM.php") // Bisa @PUT tergantung backend, di modul pakai editTM.php
+    @POST("editTM.php")
     suspend fun updateDataSiswa(@Query("id") id: Int, @Body dataSiswa: DataSiswa)
 
-    @GET("deleteTM.php") // Di modul biasanya pakai GET atau POST untuk hapus, cek modulmu
+    @GET("deleteTM.php")
     suspend fun deleteDataSiswa(@Query("id") id: Int): Response<Void>
 }
