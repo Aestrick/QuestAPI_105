@@ -5,9 +5,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pertemuan12.R
@@ -26,6 +28,9 @@ fun DetailScreen(
     viewModel: DetailViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
     val uiState = viewModel.detailUiState
+
+    // State untuk mengontrol dialog konfirmasi hapus
+    var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -47,11 +52,32 @@ fun DetailScreen(
             }
         }
     ) { innerPadding ->
-        DetailStatus(
-            detailUiState = uiState,
-            retryAction = { viewModel.getSiswaById() },
-            modifier = Modifier.padding(innerPadding)
-        )
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(16.dp)
+        ) {
+            DetailStatus(
+                detailUiState = uiState,
+                retryAction = { viewModel.getSiswaById() },
+                onDeleteClick = {
+                    deleteConfirmationRequired = true
+                }
+            )
+        }
+
+        // Logika Dialog Konfirmasi
+        if (deleteConfirmationRequired) {
+            DeleteConfirmationDialog(
+                onDeleteConfirm = {
+                    deleteConfirmationRequired = false
+                    viewModel.deleteSiswa()
+                    navigateBack()
+                },
+                onDeleteCancel = { deleteConfirmationRequired = false },
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
     }
 }
 
@@ -59,13 +85,15 @@ fun DetailScreen(
 fun DetailStatus(
     detailUiState: DetailUiState,
     retryAction: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDeleteClick: () -> Unit
 ) {
     when (detailUiState) {
         is DetailUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
         is DetailUiState.Success -> DetailLayout(
             siswa = detailUiState.siswa,
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth(),
+            onDeleteClick = onDeleteClick
         )
         is DetailUiState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
     }
@@ -74,15 +102,27 @@ fun DetailStatus(
 @Composable
 fun DetailLayout(
     siswa: DataSiswa,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDeleteClick: () -> Unit
 ) {
     Column(
-        modifier = modifier.padding(16.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         ItemDetail(judul = "Nama", isi = siswa.nama)
         ItemDetail(judul = "Alamat", isi = siswa.alamat)
         ItemDetail(judul = "Telepon", isi = siswa.telpon)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = onDeleteClick,
+            shape = MaterialTheme.shapes.small,
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Hapus Data")
+        }
     }
 }
 
@@ -90,6 +130,30 @@ fun DetailLayout(
 fun ItemDetail(judul: String, isi: String) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(text = judul, style = MaterialTheme.typography.labelLarge)
-        Text(text = isi, style = MaterialTheme.typography.titleLarge)
+        Text(text = isi, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
     }
+}
+
+@Composable
+private fun DeleteConfirmationDialog(
+    onDeleteConfirm: () -> Unit,
+    onDeleteCancel: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    AlertDialog(
+        onDismissRequest = { /* Tidak melakukan apa-apa */ },
+        title = { Text(stringResource(R.string.attention)) },
+        text = { Text(text = stringResource(R.string.delete)) },
+        modifier = modifier,
+        dismissButton = {
+            TextButton(onClick = onDeleteCancel) {
+                Text(text = stringResource(R.string.no))
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDeleteConfirm) {
+                Text(text = stringResource(R.string.yes))
+            }
+        }
+    )
 }

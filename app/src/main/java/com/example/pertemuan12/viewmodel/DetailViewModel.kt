@@ -24,7 +24,6 @@ class DetailViewModel(
     private val repositoryDataSiswa: RepositoryDataSiswa
 ) : ViewModel() {
 
-    // Ambil ID dari navigasi (Pastikan itemIdArg sesuai dengan di DestinasiNavigasi)
     private val _idSiswa: Int = checkNotNull(savedStateHandle[DestinasiDetail.itemIdArg])
 
     var detailUiState: DetailUiState by mutableStateOf(DetailUiState.Loading)
