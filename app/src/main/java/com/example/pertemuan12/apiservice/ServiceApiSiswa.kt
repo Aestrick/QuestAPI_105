@@ -23,7 +23,6 @@ interface ServiceApiSiswa {
     @POST("editTM.php") // Bisa @PUT tergantung backend, di modul pakai editTM.php
     suspend fun updateDataSiswa(@Query("id") id: Int, @Body dataSiswa: DataSiswa)
 
-    // Perhatikan: Menggunakan id: Int
     @GET("deleteTM.php") // Di modul biasanya pakai GET atau POST untuk hapus, cek modulmu
     suspend fun deleteDataSiswa(@Query("id") id: Int): Response<Void>
 }
