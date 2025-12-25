@@ -3,30 +3,27 @@ package com.example.pertemuan12.apiservice
 import com.example.pertemuan12.modeldata.DataSiswa
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.PUT // Atau POST jika backend tidak support PUT
 import retrofit2.http.Query
 
 interface ServiceApiSiswa {
-    @Headers(
-        "Accept: application/json",
-        "Content-Type: application/json"
-    )
-    @GET("bacaTeman.php")
+    @GET("bacateman.php")
     suspend fun getDataSiswa(): List<DataSiswa>
 
-    @GET("baca1Teman.php")
-    suspend fun getDataSiswaById(@Query("nama") nama: String): DataSiswa
-
     @POST("insertTM.php")
-    suspend fun insertDataSiswa(@Body dataSiswa: DataSiswa): Response<Void>
+    suspend fun insertDataSiswa(@Body dataSiswa: DataSiswa)
 
-    @PUT("editTM.php")
-    suspend fun updateDataSiswa(@Query("nama") nama: String, @Body dataSiswa: DataSiswa): Response<Void>
+    // Perhatikan: Menggunakan id: Int
+    @GET("baca1teman.php")
+    suspend fun getDataSiswaById(@Query("id") id: Int): DataSiswa
 
-    @DELETE("deleteTM.php")
-    suspend fun deleteDataSiswa(@Query("nama") nama: String): Response<Void>
+    // Perhatikan: Menggunakan id: Int
+    @POST("editTM.php") // Bisa @PUT tergantung backend, di modul pakai editTM.php
+    suspend fun updateDataSiswa(@Query("id") id: Int, @Body dataSiswa: DataSiswa)
+
+    // Perhatikan: Menggunakan id: Int
+    @GET("deleteTM.php") // Di modul biasanya pakai GET atau POST untuk hapus, cek modulmu
+    suspend fun deleteDataSiswa(@Query("id") id: Int): Response<Void>
 }
