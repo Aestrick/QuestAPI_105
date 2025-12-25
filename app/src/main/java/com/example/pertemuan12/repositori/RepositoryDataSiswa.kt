@@ -29,7 +29,6 @@ class NetworkRepositoryDataSiswa(
     override suspend fun deleteDataSiswa(id: Int) {
         try {
             val response = serviceApiSiswa.deleteDataSiswa(id)
-            // Cek jika response code bukan 200 (OK)
             if (!response.isSuccessful) {
                 throw IOException("Gagal menghapus data. Kode: ${response.code()}")
             }
