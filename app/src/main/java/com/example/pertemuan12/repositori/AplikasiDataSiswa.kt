@@ -3,11 +3,12 @@ package com.example.pertemuan12.repositori
 import android.app.Application
 
 class AplikasiDataSiswa : Application() {
-    lateinit var container: ContainerApp
+    // 1. Ganti tipe datanya jadi AppContainer (Sesuai interface yang kita buat)
+    lateinit var container: AppContainer
 
     override fun onCreate() {
         super.onCreate()
-        container = DefaultContainerApp()
+        // 2. Inisialisasi menggunakan ContainerDataSiswa (Sesuai class yang kita buat)
+        container = ContainerDataSiswa()
     }
 }
-
