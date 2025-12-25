@@ -23,7 +23,6 @@ class DetailViewModel(
     private val repositoryDataSiswa: RepositoryDataSiswa
 ) : ViewModel() {
 
-    // Perbaikan: Ambil ID (Int) bukan Nama
     private val _idSiswa: Int = checkNotNull(savedStateHandle[DestinasiDetail.itemIdArg])
 
     var detailUiState: DetailUiState by mutableStateOf(DetailUiState.Loading)
