@@ -11,12 +11,8 @@ interface AppContainer {
 }
 
 class ContainerDataSiswa : AppContainer {
-    // 1. IP EMULATOR = 10.0.2.2
-    // 2. FOLDER KAMU = umyTI (sesuai screenshot)
-    // 3. WAJIB DI-AKHIRI GARIS MIRING '/'
     private val baseUrl = "http://10.0.2.2/umyTI/"
 
-    // Konfigurasi JSON agar tidak error jika ada field asing
     private val json = Json { ignoreUnknownKeys = true }
 
     private val retrofit: Retrofit = Retrofit.Builder()

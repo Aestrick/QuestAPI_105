@@ -25,7 +25,7 @@ data class UIStateSiswa(
 )
 
 fun DetailSiswa.toDataSiswa(): DataSiswa = DataSiswa(
-    id = id, // Bagian ini yang tadi error "No value passed for parameter id"
+    id = id,
     nama = nama,
     alamat = alamat,
     telpon = telpon
