@@ -23,7 +23,6 @@ class EditViewModel(
     var uiStateSiswa by mutableStateOf(UIStateSiswa())
         private set
 
-    // Perbaikan: Ambil ID (Int)
     private val _idSiswa: Int = checkNotNull(savedStateHandle[DestinasiEdit.itemIdArg])
 
     init {
