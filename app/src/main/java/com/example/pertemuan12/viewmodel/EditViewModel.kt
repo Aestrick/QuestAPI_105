@@ -50,7 +50,6 @@ class EditViewModel(
     fun updateSiswa() {
         viewModelScope.launch {
             try {
-                // Perbaikan: Kirim ID saat update
                 repositoryDataSiswa.updateDataSiswa(_idSiswa, uiStateSiswa.detailSiswa.toDataSiswa())
             } catch (e: Exception) {
                 e.printStackTrace()
