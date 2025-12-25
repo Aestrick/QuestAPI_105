@@ -7,7 +7,6 @@ import java.io.IOException
 interface RepositoryDataSiswa {
     suspend fun getDataSiswa(): List<DataSiswa>
     suspend fun insertDataSiswa(dataSiswa: DataSiswa)
-    // Perbaikan: Ubah String jadi Int
     suspend fun updateDataSiswa(id: Int, dataSiswa: DataSiswa)
     suspend fun deleteDataSiswa(id: Int)
     suspend fun getDataSiswaById(id: Int): DataSiswa
