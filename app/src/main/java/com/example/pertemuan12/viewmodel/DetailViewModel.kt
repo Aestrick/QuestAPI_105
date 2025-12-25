@@ -46,7 +46,6 @@ class DetailViewModel(
         }
     }
 
-    // Perbaikan: Delete by ID
     fun deleteSiswa() {
         viewModelScope.launch {
             try {
