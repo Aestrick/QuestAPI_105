@@ -1,6 +1,6 @@
 package com.example.pertemuan12.uicontroller.route
 
-import com.example.pertemuan12.R // Sesuaikan R import kamu
+import com.example.pertemuan12.R
 
 interface DestinasiNavigasi {
     val route: String
@@ -14,13 +14,12 @@ object DestinasiHome : DestinasiNavigasi {
 
 object DestinasiEntry : DestinasiNavigasi {
     override val route = "item_entry"
-    override val titleRes = R.string.entry_siswa // Pastikan string resource ada
+    override val titleRes = R.string.entry_siswa
 }
 
 object DestinasiDetail : DestinasiNavigasi {
     override val route = "detail"
     override val titleRes = R.string.detail_siswa
-    // INI YANG KURANG:
     const val itemIdArg = "itemId"
     val routeWithArgs = "$route/{$itemIdArg}"
 }
@@ -28,7 +27,6 @@ object DestinasiDetail : DestinasiNavigasi {
 object DestinasiEdit : DestinasiNavigasi {
     override val route = "edit"
     override val titleRes = R.string.edit_siswa
-    // INI YANG KURANG:
     const val itemIdArg = "itemId"
     val routeWithArgs = "$route/{$itemIdArg}"
 }
