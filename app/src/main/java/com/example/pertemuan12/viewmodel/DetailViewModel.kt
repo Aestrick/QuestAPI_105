@@ -32,7 +32,6 @@ class DetailViewModel(
         getSiswaById()
     }
 
-    // Perbaikan: Fungsi get by ID
     fun getSiswaById() {
         viewModelScope.launch {
             detailUiState = DetailUiState.Loading
